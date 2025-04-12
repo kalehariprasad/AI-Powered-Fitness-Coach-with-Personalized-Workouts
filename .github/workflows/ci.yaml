@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  install_and_test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9  # Or whichever Python version you need
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # Install your Python dependencies
+
+    - name: Install Ollama
+      run: |
+        curl -sSL https://ollama.com/download | bash  # Assuming this is the installation command
+        # Alternatively, check Ollama's documentation for installation instructions
+        # You might need to set the Ollama path if needed
+
+
+    - name: Run your tests
+      run: |
+        streamlt run streamlit.py
+
+
