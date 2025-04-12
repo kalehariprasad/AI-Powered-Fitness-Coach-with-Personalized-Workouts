@@ -27,9 +27,8 @@ jobs:
 
     - name: Install Ollama
       run: |
-        curl -sSL https://ollama.com/download | bash  # Assuming this is the installation command
-        # Alternatively, check Ollama's documentation for installation instructions
-        # You might need to set the Ollama path if needed
+        curl -fsSL https://ollama.com/install.sh | sh  
+      
 
 
     - name: Run your tests
