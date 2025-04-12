@@ -33,6 +33,6 @@ jobs:
 
     - name: Run your tests
       run: |
-        streamlt run streamlit.py
+        streamlit run streamlit.py
 
 
