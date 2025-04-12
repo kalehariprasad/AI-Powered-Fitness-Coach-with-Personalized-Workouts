@@ -1,0 +1,9 @@
+{
+    "input_variables": [
+        "duration",
+        "equipment",
+        "fitness_level",
+        "goal"
+    ],
+    "template": "Create a personalized workout plan for a {fitness_level} individual whose goal is {goal}. The workout should last {duration} minutes and use {equipment} equipment. Provide step-by-step exercises."
+}
