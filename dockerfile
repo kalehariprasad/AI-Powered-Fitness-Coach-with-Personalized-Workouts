@@ -2,7 +2,7 @@ FROM python:3.13-slim
 
 # Install system packages required for NumPy and other Python dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl git libgl1-mesa-glx gcc make && \
+    apt-get install -y --no-install-recommends curl git libgl1-mesa-glx gcc make tar && \
     apt-get -f install && \
     rm -rf /var/lib/apt/lists/*
 
