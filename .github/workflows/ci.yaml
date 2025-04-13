@@ -2,8 +2,8 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - 
+    branches: 
+      - main
 
 jobs:
   install_and_test:
@@ -25,11 +25,9 @@ jobs:
     - name: Install Ollama
       run: |
         curl -fsSL https://ollama.com/install.sh | sh  
-      
-
-
-    - name: Run your tests
+        
+    - name: Build Docker image
       run: |
-        streamlit run streamlit.py
+        docker build -t local/test-image:latest .
 
-
+  d
