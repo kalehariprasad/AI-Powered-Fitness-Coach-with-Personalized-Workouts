@@ -1,8 +1,8 @@
 FROM python:3.13-slim
 
-# Install system packages required for Ollama and some Python dependencies
+# Install system packages required for NumPy and other Python dependencies
 RUN apt-get update && \
-    apt-get install -y curl git libgl1-mesa-glx && \
+    apt-get install -y curl git libgl1-mesa-glx gcc make && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Ollama
@@ -27,4 +27,4 @@ EXPOSE 8501 11434
 CMD bash -c "\
     ollama serve & \
     sleep 5 && \
-    streamlit run streamlit.py"
+    streamlit run app.py"
