@@ -15,7 +15,7 @@ WORKDIR /app
 COPY . /app
 
 # Install Python packages
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # (Optional but helpful) Pre-pull model to avoid wait on first run
 RUN ollama pull llama3:latest
