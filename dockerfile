@@ -1,6 +1,19 @@
 FROM python:3.13-slim
 
-
+# Install system packages required for NumPy and other Python dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        gcc \
+        g++ \
+        python3-dev \
+        libssl-dev \
+        libffi-dev \
+        curl \
+        git \
+        libgl1-mesa-glx \
+        make \
+        tar && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
@@ -10,6 +23,9 @@ WORKDIR /app
 
 # Copy project files into the container
 COPY . /app
+
+# Upgrade pip to the latest version
+RUN pip install --upgrade pip
 
 # Install Python packages
 RUN pip install -r requirements.txt
@@ -21,7 +37,4 @@ RUN ollama pull llama3:latest
 EXPOSE 8501 11434
 
 # Run Ollama in the background and launch the Streamlit app
-CMD bash -c "\
-    ollama serve & \
-    sleep 5 && \
-    streamlit run app.py"
+CMD ["bash", "-c", "ollama serve & sleep 5 && streamlit run app.py"]
