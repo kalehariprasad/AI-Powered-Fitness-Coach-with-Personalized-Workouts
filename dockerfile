@@ -1,40 +1,29 @@
-FROM python:3.13-slim
+# Use official Python base image
+FROM python:3.9-slim
 
-# Install system packages required for NumPy and other Python dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        gcc \
-        g++ \
-        python3-dev \
-        libssl-dev \
-        libffi-dev \
-        curl \
-        git \
-        libgl1-mesa-glx \
-        make \
-        tar && \
-    rm -rf /var/lib/apt/lists/*
-
-# Install Ollama
-RUN curl -fsSL https://ollama.com/install.sh | sh
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Set working directory
 WORKDIR /app
 
-# Copy project files into the container
+# Copy the project files into the container
 COPY . /app
 
-# Upgrade pip to the latest version
-RUN pip install --upgrade pip
+# Install system dependencies (curl for Ollama install)
+RUN apt-get update && apt-get install -y curl && \
+    apt-get clean
 
-# Install Python packages
-RUN pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-# (Optional but helpful) Pre-pull model to avoid wait on first run
-RUN ollama pull llama3:latest
+# Install Ollama
+RUN curl -fsSL https://ollama.com/install.sh | sh
 
-# Expose Streamlit and Ollama ports
+# Expose ports for Streamlit and Ollama
 EXPOSE 8501 11434
 
-# Run Ollama in the background and launch the Streamlit app
-CMD ["bash", "-c", "ollama serve & sleep 5 && streamlit run app.py"]
+# Run both Ollama and Streamlit
+CMD ["/bin/sh", "-c", "ollama serve & streamlit run streamlit.py"]
