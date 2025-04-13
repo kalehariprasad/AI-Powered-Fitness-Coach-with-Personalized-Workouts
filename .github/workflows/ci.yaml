@@ -30,4 +30,4 @@ jobs:
       run: |
         docker build -t local/test-image:latest .
 
-  d
+  
