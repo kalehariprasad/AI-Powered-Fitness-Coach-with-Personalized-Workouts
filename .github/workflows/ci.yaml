@@ -18,14 +18,6 @@ jobs:
       with:
         python-version: 3.9
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: Install Ollama (Optional for testing only)
-      run: |
-        curl -fsSL https://ollama.com/install.sh | sh  
-
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
