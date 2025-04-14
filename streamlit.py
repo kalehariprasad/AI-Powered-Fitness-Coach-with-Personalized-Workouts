@@ -1,17 +1,27 @@
 from langchain_ollama.llms import OllamaLLM
+from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint
 from langchain_core.output_parsers import StrOutputParser
-from langchain_ollama.llms import OllamaLLM
 from langchain_core.prompts import load_prompt
+from dotenv import load_dotenv
 import os
 import streamlit as st
 from fpdf import FPDF
 from datetime import datetime
 
 
+HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
+load_dotenv()
 
-model = OllamaLLM(model="llama3.2", base_url="http://localhost:11434")
+llm = HuggingFaceEndpoint(
+    repo_id="mistralai/Mistral-7B-Instruct-v0.3",
+    task="text-generation",
+    huggingfacehub_api_token=HUGGINGFACE_API_KEY
+)
 
+model = ChatHuggingFace(llm=llm)
+
+#model = OllamaLLM(model="llama3.2", base_url="http://localhost:11434")
 prompt =load_prompt('workout.json')
 parser = StrOutputParser()
 
