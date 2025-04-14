@@ -33,7 +33,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest .
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/workout-app:latest .
 
     # Optional: Push to Docker Hub (if you want it stored there)
     - name: Push Docker image

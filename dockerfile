@@ -1,41 +1,28 @@
-# --------------------------
-# Stage 1: Builder
-# --------------------------
-    FROM python:3.9-slim AS builder
+# Use a slim Python image
+FROM python:3.9-slim
 
-    # Set environment variables
-    ENV PYTHONDONTWRITEBYTECODE=1
-    ENV PYTHONUNBUFFERED=1
-    
-    WORKDIR /app
-    
-    # Install pip and project dependencies
-    COPY requirements.txt .
-    RUN pip install --upgrade pip && pip install -r requirements.txt
-    
-    # --------------------------
-    # Stage 2: Final image with Ollama and Streamlit
-    # --------------------------
-    FROM python:3.9-slim
-    
-    WORKDIR /app
-    
-    # Install system dependencies (curl needed for Ollama)
-    RUN apt-get update && apt-get install -y curl && apt-get clean
-    
-    # Copy files
-    COPY . /app
-    
-    # Copy installed Python packages from builder
-    COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-    COPY --from=builder /usr/local/bin /usr/local/bin
-    
-    # Install Ollama
-    RUN curl -fsSL https://ollama.com/install.sh | sh
-    
-    # Expose ports for Streamlit and Ollama
-    EXPOSE 8501 11434
-    
-    # Start both Ollama and Streamlit
-    CMD ["/bin/sh", "-c", "ollama serve & streamlit run streamlit.py"]
-    
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Set the working directory
+WORKDIR /app
+
+# Install system dependencies for Streamlit, FPDF, and Hugging Face's transformers
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libglib2.0-0 libsm6 libxrender1 libxext6 curl \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+# Copy application files to the container
+COPY . /app
+
+# Install Python dependencies from requirements.txt
+RUN pip install --upgrade pip \
+ && pip install -r requirements.txt
+
+# Expose the default port for Streamlit
+EXPOSE 8501
+
+# Command to run the Streamlit app
+CMD ["streamlit", "run", "streamlit.py"]
