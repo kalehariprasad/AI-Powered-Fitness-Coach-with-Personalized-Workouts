@@ -38,4 +38,4 @@ jobs:
     # Optional: Push to Docker Hub (if you want it stored there)
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/workout-app:latest
