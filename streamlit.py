@@ -9,7 +9,7 @@ from fpdf import FPDF
 from datetime import datetime
 
 
-HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+HUGGINGFACE_API_KEY = st.secrets("HUGGINGFACEHUB_API_TOKEN")
 
 load_dotenv()
 
