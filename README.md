@@ -31,9 +31,9 @@ This project is a web-based AI fitness assistant that generates personalized wor
 
 ## 📸 Demo
 
-![Workout Planner Demo](https://via.placeholder.com/800x400?text=Demo+Coming+Soon)
+![Workout Planner Demo](https://drive.google.com/file/d/1WLKK4NxK0VtlLRMqyqX3KXWmGvaW7sIM/view?usp=sharing)
 
-> *(Add a real screenshot or screen recording GIF if you have one!)*
+
 
 ---
 

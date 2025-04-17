@@ -9,14 +9,14 @@ from fpdf import FPDF
 from datetime import datetime
 
 
-HUGGINGFACE_API_KEY = st.secrets("HUGGINGFACEHUB_API_TOKEN")
+#HUGGINGFACE_API_KEY = st.secrets("HUGGINGFACEHUB_API_TOKEN")
 
 load_dotenv()
 
 llm = HuggingFaceEndpoint(
     repo_id="mistralai/Mistral-7B-Instruct-v0.3",
-    task="text-generation",
-    huggingfacehub_api_token=HUGGINGFACE_API_KEY
+    task="text-generation"
+    
 )
 
 model = ChatHuggingFace(llm=llm)
